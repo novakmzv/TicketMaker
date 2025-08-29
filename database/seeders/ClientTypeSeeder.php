@@ -19,7 +19,7 @@ class ClientTypeSeeder extends Seeder
 
         ClientType::create([
             'name' => 'VIP',
-            'price_multiplier' => 1.50
+            'price_multiplier' => 0.70
         ]);
 
         ClientType::create([
