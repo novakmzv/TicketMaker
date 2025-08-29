@@ -10,6 +10,7 @@ use App\Services\TicketService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class TicketController extends Controller
 {
@@ -45,5 +46,14 @@ class TicketController extends Controller
     {
         $ticket = Ticket::with(['game', 'clientType'])->findOrFail($id);
         return view('tickets.show', compact('ticket'));
+    }
+
+    public function generatePdf(Ticket $ticket)
+    {
+        $ticket->load(['game', 'clientType']);
+
+        return Pdf::view('tickets.pdf', compact('ticket'))
+            ->format('a4')
+            ->inline('ticket-' . $ticket->ticket_code . '.pdf');
     }
 }

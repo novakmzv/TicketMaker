@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::resource('tickets', TicketController::class)->except(['edit', 'update', 'destroy']);
+
+Route::get('tickets/{ticket}/pdf', [TicketController::class, 'generatePdf'])->name('tickets.pdf');

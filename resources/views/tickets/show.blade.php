@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3>Ticket Generado</h3>
-                    <button class="btn btn-success" onclick="window.print()">Imprimir PDF</button>
+                    <a href="{{ route('tickets.pdf', $ticket) }}" class="btn btn-outline-primary text-center" target="_blank">Ver PDF</a>
                 </div>
                 <div class="card-body" id="ticket-content">
                     <div class="text-center mb-4">
@@ -39,7 +39,8 @@
                         </div>
                         <div class="col-md-6">
                             <h5>Precio Final</h5>
-                            <p class="h3 text-success"><strong>${{ number_format($ticket->final_price, 2) }}</strong></p>
+                            <p class="h3 text-success"><strong>${{ number_format($ticket->final_price, 2) }}</strong>
+                            </p>
                         </div>
                     </div>
 

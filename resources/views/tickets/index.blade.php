@@ -34,7 +34,7 @@
                                 <td>${{ number_format($ticket->final_price, 2) }}</td>
                                 <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                                 <td>
-                                    <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-sm btn-info">Ver</a>
+                                    <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-sm btn-outline-primary">Ver</a>
                                 </td>
                             </tr>
                         @endforeach
