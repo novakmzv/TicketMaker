@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreTicketRequest;
 use App\Models\Ticket;
 use App\Models\Game;
 use App\Models\ClientType;
@@ -9,19 +10,19 @@ use App\Strategies\PricingStrategyResolver;
 
 class TicketService
 {
-    public function createTicket(string $clientName, int $gameId, int $clientTypeId): Ticket
+    public function createTicket(StoreTicketRequest $request): Ticket
     {
-        $game = Game::findOrFail($gameId);
-        $clientType = ClientType::findOrFail($clientTypeId);
+        $game = Game::findOrFail($request->game_id);
+        $clientType = ClientType::findOrFail($request->client_type_id);
 
         $strategy = PricingStrategyResolver::resolve($clientType);
 
         $finalPrice = $strategy->calculatePrice($game);
 
         return Ticket::create([
-            'client_name' => $clientName,
-            'game_id' => $gameId,
-            'client_type_id' => $clientTypeId,
+            'client_name' => $request->client_name,
+            'game_id' => $request->game_id,
+            'client_type_id' => $request->client_type_id,
             'final_price' => $finalPrice,
             'ticket_code' => $this->generateTicketCode(),
         ]);
